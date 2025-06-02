@@ -21,10 +21,34 @@ app.get('/products', (req, res) => {
     
 app.get('/test', (req, res) => {
      res.status(200).send({
-        message:"api is working fine!",
+        message:"get: api is working fine!",
     });
 
 });
+
+app.post('/test', (req, res) => {
+     res.status(200).send({
+        message:"post: api is working fine!",
+    });
+
+});
+
+app.put('/test', (req, res) => {
+     res.status(200).send({
+        message:"put: api is working fine!",
+    });
+
+});
+
+app.delete('/test', (req, res) => {
+     res.status(200).send({
+        message:"delete: api is working fine!",
+    });
+
+});
+
+
+
 
 app.listen(3001, () => { //Create a local server on port 3001
   console.log('Server is running on http://localhost:3001');

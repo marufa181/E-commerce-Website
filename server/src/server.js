@@ -14,6 +14,8 @@ const isLoggedIn =(req, res, next) => { //Middleware function
     }
 };
 
+app.use(isLoggedIn); // Apply the isLoggedIn middleware to all routes
+
 
 app.get('/', (req, res) => { //HTTP GET request to the root URL
     // This route will respond with a welcome message
@@ -23,7 +25,7 @@ app.get('/', (req, res) => { //HTTP GET request to the root URL
 
 });
 
-app.get('/api/products', isLoggedIn,(req, res) => {
+app.get('/api/products',(req, res) => {
      res.status(200).send({ //HTTP status 200 indicates success
         message:"products is returned", // json response
     });

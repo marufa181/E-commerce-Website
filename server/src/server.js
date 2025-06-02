@@ -4,8 +4,14 @@ const app = express();
 
 app.use(morgan('dev')); // Use morgan middleware to log requests in 'dev' format
 const isLoggedIn =(req, res, next) => { //Middleware function
-    console.log("isLoggedIn middleware called");
+    const login = true;
+    if (login){
     next();
+    } else {
+        return res.status(401).json({ //HTTP status 401 indicates unauthorized access
+            message: "Unauthorized access and login first",
+        });
+    }
 };
 
 
@@ -19,7 +25,7 @@ app.get('/', (req, res) => { //HTTP GET request to the root URL
 
 app.get('/api/products', isLoggedIn,(req, res) => {
      res.status(200).send({ //HTTP status 200 indicates success
-        message:"products", // json response
+        message:"products is returned", // json response
     });
 
 });

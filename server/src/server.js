@@ -3,9 +3,14 @@ const morgan = require('morgan'); // Importing morgan for logging HTTP requests
 const app = express();
 
 app.use(morgan('dev')); // Use morgan middleware to log requests in 'dev' format
+app.use(express.json()); // Middleware to parse JSON bodies of incoming requests
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
+
+
 const isLoggedIn =(req, res, next) => { //Middleware function
     const login = true;
     if (login){
+        req.body.id =101;   
     next();
     } else {
         return res.status(401).json({ //HTTP status 401 indicates unauthorized access
@@ -14,7 +19,6 @@ const isLoggedIn =(req, res, next) => { //Middleware function
     }
 };
 
-app.use(isLoggedIn); // Apply the isLoggedIn middleware to all routes
 
 
 app.get('/', (req, res) => { //HTTP GET request to the root URL
@@ -25,7 +29,8 @@ app.get('/', (req, res) => { //HTTP GET request to the root URL
 
 });
 
-app.get('/api/products',(req, res) => {
+app.get('/api/products',isLoggedIn,(req, res) => {
+    console.log(req.body.id); // Log the user ID from the request body
      res.status(200).send({ //HTTP status 200 indicates success
         message:"products is returned", // json response
     });

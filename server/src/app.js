@@ -1,8 +1,19 @@
 const express = require('express');
 const morgan = require('morgan'); // Importing morgan for logging HTTP requests
 const createError = require('http-errors')
+const xssClean = require('xss-clean');
+const rateLimit = require('express-rate-limit'); // Importing express-rate-limit for rate limiting
+
 const app = express();
 
+const rateimiter = rateLimit({ // Setting up rate limiting middleware
+    windowMs: 1 * 60 * 1000, // 1 minutes
+    max: 5, // Limit each IP to 5 requests per windowMs
+    message: "Too many requests, please try again later."
+});
+
+app.use(rateimiter); // Apply the rate limiting middleware to all requests
+app.use(xssClean()); // Middleware to sanitize user input to prevent XSS attacks
 app.use(morgan('dev')); // Use morgan middleware to log requests in 'dev' format
 app.use(express.json()); // Middleware to parse JSON bodies of incoming requests
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies

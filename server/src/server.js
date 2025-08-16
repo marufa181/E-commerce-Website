@@ -70,8 +70,25 @@ app.delete('/test', (req, res) => {
 });
 
 
+// Client error handling middleware
+app.use((req, res, next) => { // Middleware to handle 404 errors
+    res.status(404).json({
+        message: "Resource not found",
+    });
+});
+
+// Server error handling middleware
+app.use((err, req, res, next) => { // Middleware to handle 500 errors
+    console.error(err.stack); // Log the error stack trace
+    res.status(500).json({
+        message: "Internal Server Error",
+    });
+});
+
 
 
 app.listen(3001, () => { //Create a local server on port 3001
   console.log('Server is running on http://localhost:3001');
 });
+
+

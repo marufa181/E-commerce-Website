@@ -6,4 +6,5 @@ E-commerce website built using HTML, CSS, and JavaScript.
 3. HTTP request & response
 4. nodemon and morgan package
 5. API testing with Postman
-6. Middleware
+6. Middleware & Types of Middleware
+7. Express Error Handling Middleware

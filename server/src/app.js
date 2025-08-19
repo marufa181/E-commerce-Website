@@ -1,8 +1,9 @@
 const express = require('express');
 const morgan = require('morgan'); // Importing morgan for logging HTTP requests
-const createError = require('http-errors')
+const createError = require('http-errors');
 const xssClean = require('xss-clean');
 const rateLimit = require('express-rate-limit'); // Importing express-rate-limit for rate limiting
+const userRouter = require('./routers/userRouter');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(morgan('dev')); // Use morgan middleware to log requests in 'dev' format
 app.use(express.json()); // Middleware to parse JSON bodies of incoming requests
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 
+app.use('/api/users', userRouter);
 
 /**app.get('/', (req, res) => { //HTTP GET request to the root URL
     // This route will respond with a welcome message
@@ -31,13 +33,6 @@ app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-enco
 app.get('/test', (req, res) => {
      res.status(200).send({
         message:"get: api is working fine!",
-    });
-
-});
-
-app.get('/api/users', (req, res) => {
-     res.status(200).send({
-        message:"user profile is returned",
     });
 
 });

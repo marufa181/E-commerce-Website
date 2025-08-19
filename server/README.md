@@ -11,3 +11,4 @@ E-commerce website built using HTML, CSS, and JavaScript.
 8. How to handle HTTP errors -> npm i http-errors
 9. How to secure API -> xss-clean, express-rate-limit
 10. Environment variable(.env) & gitignore
+11. MVC Architecture (Model, View, Controller)
